@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 //minha classe usuário
 class User {
   final String id;
