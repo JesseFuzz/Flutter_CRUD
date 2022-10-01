@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crud/provider/users.dart';
 import 'package:flutter_crud/views/user_list.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //esse  método
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: const UserList(),
-    );
+    return ChangeNotifierProvider(
+        // ignore: unnecessary_new
+        create: (context) => new Users(),
+        child: MaterialApp(
+          //toda a aplicação é CHILD de ChangeNotifier e toda ela tem acesso ao ChangeNotifierProvider que no caso é a classe Users
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+          ),
+          home: const UserList(),
+        ));
   }
 }

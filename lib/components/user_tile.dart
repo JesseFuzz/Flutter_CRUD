@@ -20,9 +20,15 @@ class UserTile extends StatelessWidget {
       subtitle: Text(user.email),
       trailing: Container(
           width: 100,
+          height: 100,
           child: Row(children: <Widget>[
-            IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.edit, color: Colors.blue)),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.delete),
+                color: Colors.red)
           ])),
     );
   }
