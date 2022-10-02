@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/components/user_tile.dart';
 import 'package:flutter_crud/provider/users.dart';
+import 'package:flutter_crud/routes/app_routes.dart';
 import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class UserList extends StatelessWidget {
   const UserList({super.key});
@@ -17,9 +20,14 @@ class UserList extends StatelessWidget {
           title: const Text('Lista de usuários'),
           actions: <Widget>[
             IconButton(
-                icon: const Icon(Icons.add),
+                icon: const Icon(Icons
+                    .add), //aqui eu tenho o icone do meu método de adicionar
                 color: Colors.white,
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes
+                      .USER_FORM); //aqui eu chamo a rota que eu criei pra p .add
+                  //aqui eu tenho o evento onPressed do meu método de adicionar
+                }),
           ],
         ),
         // body: ListView.builder(
@@ -28,8 +36,8 @@ class UserList extends StatelessWidget {
         //         Text(users.values.elementAt(index).name)));
         body: ListView.builder(
             itemCount: users.count, //era .length, mas eu criei o .count
-            itemBuilder: (context, index) => UserTile(users.all.elementAt(
-                //era .values, mas eu criei o .all
-                index)))); //esse ListView vai criar uma lista dos dummyUsers no body
+            itemBuilder: (context, index) => UserTile(users.byIndex(index)
+                //era .values, mas eu criei o .all. era o .all mas eu criei o byIndex
+                ))); //esse ListView vai criar uma lista dos dummyUsers no body
   }
 }
