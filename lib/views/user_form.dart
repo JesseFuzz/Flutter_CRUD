@@ -8,7 +8,7 @@ class UserForm extends StatelessWidget {
 
   final _form =
       GlobalKey<FormState>(); // _ underline pois essa variável é privada
-  final Map<String, String> _formData = {};
+  final Map<String, Object> _formData = {};
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,10 @@ class UserForm extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              final isValid = _form.currentState.validate();
+              final isValid = _form.currentState?.validate();
               if (isValid) {
                 _form.currentState
-                    .save(); //esse método chama em cada um dos meus fields o método save
+                    ?.save(); //esse método chama em cada um dos meus fields o método save
                 Provider.of<Users>(context, listen: false).put(
                   User(
                     id: _formData['id'],
