@@ -14,7 +14,8 @@ class UserForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Formulário de Usuário'),
+        title: const Text(
+            'Formulário de Usuário'), //usando const para instanciar uma classe
         actions: <Widget>[
           IconButton(
             onPressed: () {
