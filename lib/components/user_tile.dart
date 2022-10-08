@@ -12,7 +12,9 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: unnecessary_null_comparison
-    final avatar = user.avatarUrl == null || user.avatarUrl.isEmpty
+    final userAvatarDoNotExists =
+        user.avatarUrl == null || user.avatarUrl.isEmpty;
+    final avatar = userAvatarDoNotExists
         ? const CircleAvatar(child: Icon(Icons.person))
         : CircleAvatar(backgroundImage: NetworkImage(user.avatarUrl));
     return ListTile(
@@ -20,9 +22,10 @@ class UserTile extends StatelessWidget {
       title: Text(user.name),
       subtitle: Text(user.email),
       trailing: Container(
-          width: 100,
-          height: 100,
-          child: Row(children: <Widget>[
+        width: 100,
+        height: 100,
+        child: Row(
+          children: <Widget>[
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(
@@ -35,7 +38,9 @@ class UserTile extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(Icons.delete),
                 color: Colors.red)
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }

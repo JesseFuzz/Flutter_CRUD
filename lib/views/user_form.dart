@@ -19,16 +19,18 @@ class UserForm extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              final isValid = _form.currentState?.validate();
+              final currentState = _form.currentState;
+              final isValid = currentState != null && currentState.validate();
               if (isValid) {
                 _form.currentState
                     ?.save(); //esse método chama em cada um dos meus fields o método save
                 Provider.of<Users>(context, listen: false).put(
                   User(
-                    id: _formData['id'],
-                    name: _formData['name'],
-                    email: _formData['email'],
-                    avatarUrl: _formData['avatarUrl'],
+                    //estava dando erro pois não era string aí usei o toString
+                    id: _formData['id'].toString(),
+                    name: _formData['name'].toString(),
+                    email: _formData['email'].toString(),
+                    avatarUrl: _formData['avatarUrl'].toString(),
                   ),
                 );
                 Navigator.of(context).pop();

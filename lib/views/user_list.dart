@@ -4,8 +4,6 @@ import 'package:flutter_crud/provider/users.dart';
 import 'package:flutter_crud/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 
-import '../models/user.dart';
-
 class UserList extends StatelessWidget {
   const UserList({super.key});
 
