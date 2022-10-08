@@ -8,10 +8,29 @@ class UserForm extends StatelessWidget {
 
   final _form =
       GlobalKey<FormState>(); // _ underline pois essa variável é privada
-  final Map<String, Object> _formData = {};
+  final Map<String, String> _formData = //String ou Object
+      {}; //aqui estão os dados do meu formulário dentro desse MAP. estou adicionando as chaves e valores _formData['chave'] = valores
+
+  void _loadFormData(User user) {
+    //método privado para carregar  os dados do usuário do formulário
+    final isUserOk = user != null;
+    if (isUserOk) {
+      _formData['id'] = user.id;
+      _formData['name'] = user.name;
+      _formData['email'] = user.email;
+      _formData['avatarUrl'] = user.avatarUrl;
+    }
+
+    //eu pego o user que tá na variável user ModalRoute abaixo
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = ModalRoute.of(context)?.settings.arguments
+        as User; //tem a função de me fornecer os usuários quando eu clico em editar o usuário que ja ta criado
+    //final User user = ModalRoute.of(context).settings.arguments; poderia ser feito dessa forma já passando o tipo User na variável user
+    _loadFormData(user);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -48,7 +67,13 @@ class UserForm extends StatelessWidget {
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Nome'),
+                //AQUI EU RECEBO O NOME E TRATO ELE
+                initialValue: _formData[
+                    'name'], //valor inicial que vai receber quando eu apertar pra editar
+                decoration: const InputDecoration(
+                  labelText: 'Nome',
+                  icon: Icon(Icons.account_box),
+                ),
                 validator: (value) {
                   if (value == null || value == '' || value.trim().isEmpty) {
                     return 'Nome inválido!';
@@ -62,13 +87,23 @@ class UserForm extends StatelessWidget {
                 onSaved: (value) => _formData['name'] = value!,
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'E-mail'),
+                //AQUI EU RECEBO O E-MAIL E TRATO ELE
+                initialValue: _formData['email'],
+                decoration: const InputDecoration(
+                  labelText: 'E-mail',
+                  icon: Icon(Icons.email),
+                ),
                 onSaved: (value) => _formData['email'] = value!,
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Url do Avatar'),
+                //AQUI EU RECEBO A URL DO AVATAR E TRATO ELA
+                initialValue: _formData['avatarUrl'],
+                decoration: const InputDecoration(
+                  labelText: 'Url do Avatar',
+                  icon: Icon(Icons.add_a_photo),
+                ),
                 onSaved: (value) => _formData['AvatarUrl'] = value!,
-              )
+              ),
             ],
           ),
         ),
