@@ -30,13 +30,14 @@ class UserTile extends StatelessWidget {
         child: Row(
           children: <Widget>[
             IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    AppRoutes.USER_FORM,
-                    arguments: user,
-                  );
-                },
-                icon: const Icon(Icons.edit, color: Colors.blue)),
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.USER_FORM,
+                  arguments: user,
+                );
+              },
+              icon: const Icon(Icons.edit, color: Colors.blue),
+            ),
             IconButton(
                 onPressed: () {
                   showDialog(
@@ -48,7 +49,7 @@ class UserTile extends StatelessWidget {
                         TextButton(
                           child: const Text('Não'),
                           onPressed: () {
-                            Navigator.of(context).pop(false);
+                            Navigator.of(context).pop();
                           },
                         ),
                         TextButton(
@@ -57,15 +58,14 @@ class UserTile extends StatelessWidget {
                             // Provider.of<Users>(context, listen: false)
                             //     .remove(user);
                             //comentei pois coloquei um se .then abaixo para caso o pop abaixo retorne true aí o método .remove é executado
+                            Provider.of<Users>(context, listen: false)
+                                .remove(user);
                             Navigator.of(context).pop(true);
                           },
                         )
                       ],
                     ),
-                  ).then(
-                      (confirmed) => //só uso esse .then pois o showDialog das confirmações de deleção me retornam um Future
-                          Provider.of<Users>(context, listen: false)
-                              .remove(user));
+                  );
                 },
                 icon: const Icon(Icons.delete),
                 color: Colors.red)

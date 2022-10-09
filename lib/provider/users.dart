@@ -31,30 +31,31 @@ class Users with ChangeNotifier {
   void put(User user) {
     //tirei também um parametro desnecessário dele
     //metodo que ja tem no java
-    // ignore: unnecessary_null_comparison
-    // if (user == null) {
-    //   return;
-    // } else {
-    if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
-      //min 41:20
-      _items.update(
-          user.id,
-          (value) => User(
-              id: user.id,
+    //ignore: unnecessary_null_comparison
+    if (user == null) {
+      return print('deu erro aqui no users.dart');
+    } else {
+      if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
+        //min 41:20
+        _items.update(
+            user.id,
+            (value) => User(
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                avatarUrl: user.avatarUrl));
+      }
+      //adicionar um usuário
+      final id = Random().nextDouble().toString();
+      _items.putIfAbsent(
+          id,
+          () => User(
+              id: id,
               name: user.name,
               email: user.email,
               avatarUrl: user.avatarUrl));
+      notifyListeners();
     }
-    //adicionar um usuário
-    final id = Random().nextDouble().toString();
-    _items.putIfAbsent(
-        id,
-        () => User(
-            id: id,
-            name: user.name,
-            email: user.email,
-            avatarUrl: user.avatarUrl));
-    notifyListeners();
   }
 
   void remove(User user) {
@@ -65,4 +66,3 @@ class Users with ChangeNotifier {
     }
   }
 }
-// }
