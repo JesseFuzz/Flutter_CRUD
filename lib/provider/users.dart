@@ -33,7 +33,7 @@ class Users with ChangeNotifier {
     //metodo que ja tem no java
     //ignore: unnecessary_null_comparison
     if (user == null) {
-      return print('deu erro aqui no users.dart');
+      return;
     } else {
       if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
         //min 41:20
@@ -59,8 +59,8 @@ class Users with ChangeNotifier {
   }
 
   void remove(User user) {
-    final userExists = user != null && user.id != null;
-    if (userExists) {
+    // final userExists = user != null && user.id != null;
+    if (1 == 1) {
       _items.remove(user.id);
       notifyListeners();
     }

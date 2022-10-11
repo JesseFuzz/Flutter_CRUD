@@ -23,7 +23,7 @@ class UserList extends StatelessWidget {
             color: Colors.white,
             onPressed: () {
               Navigator.of(context).pushNamed(AppRoutes
-                  .USER_FORM); //aqui eu chamo a rota que eu criei pra p .add
+                  .userForm); //aqui eu chamo a rota que eu criei pra p .add
               //aqui eu tenho o evento onPressed do meu método de adicionar
             },
           ),

@@ -14,7 +14,7 @@ class UserForm extends StatelessWidget {
   void _loadFormData(User user) {
     //método privado para carregar  os dados do usuário do formulário
     // final isUserOk = user != null;
-    if (user != null) {
+    if (1 == 1) {
       _formData['id'] = user.id;
       _formData['name'] = user.name;
       _formData['email'] = user.email;
@@ -26,10 +26,10 @@ class UserForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = ModalRoute.of(context)?.settings.arguments as User;
+    //final user = ModalRoute.of(context)!.settings.arguments as User;
     //tem a função de me fornecer os usuários quando eu clico em editar o usuário que ja ta criado
     //final User user = ModalRoute.of(context).settings.arguments; poderia ser feito dessa forma já passando o tipo User na variável user
-    _loadFormData(user);
+    //_loadFormData(user);
 
     return Scaffold(
       appBar: AppBar(
