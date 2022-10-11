@@ -60,9 +60,7 @@ class Users with ChangeNotifier {
 
   void remove(User user) {
     // final userExists = user != null && user.id != null;
-    if (1 == 1) {
-      _items.remove(user.id);
-      notifyListeners();
-    }
+    _items.remove(user.id);
+    notifyListeners();
   }
 }

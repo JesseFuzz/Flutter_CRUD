@@ -15,10 +15,11 @@ class User {
     required this.avatarUrl,
   });
 
-  User.jesse() //construtor nomeado
-      //pode ser usado para substituir meus dummyUsers
-      : avatarUrl = 'sfgsgf',
-        id = '10',
-        name = 'jesse',
-        email = 'jessesoza@fkdfjka';
+//   User.jesse() //construtor nomeado
+//       //pode ser usado para substituir meus dummyUsers
+//       : avatarUrl = 'sfgsgf',
+//         id = '10',
+//         name = 'jesse',
+//         email = 'jessesoza@fkdfjka';
+//
 }

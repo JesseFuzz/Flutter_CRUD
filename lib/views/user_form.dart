@@ -4,31 +4,36 @@ import 'package:flutter_crud/provider/users.dart';
 import 'package:provider/provider.dart';
 
 class UserForm extends StatelessWidget {
-  UserForm({super.key});
+  UserForm(
+      //this.baseUser,
+      {super.key});
 
   final _form =
       GlobalKey<FormState>(); // _ underline pois essa variável é privada
-  final Map<String, String> _formData = //String ou Object
+  final Map<String, Object> _formData = //String ou Object
       {}; //aqui estão os dados do meu formulário dentro desse MAP. estou adicionando as chaves e valores _formData['chave'] = valores
 
+  //User? baseUser;
   void _loadFormData(User user) {
     //método privado para carregar  os dados do usuário do formulário
     // final isUserOk = user != null;
-    if (1 == 1) {
-      _formData['id'] = user.id;
-      _formData['name'] = user.name;
-      _formData['email'] = user.email;
-      _formData['avatarUrl'] = user.avatarUrl;
-    }
-
+    _formData['id'] = user.id;
+    _formData['name'] = user.name;
+    _formData['email'] = user.email;
+    _formData['avatarUrl'] = user.avatarUrl;
     //eu pego o user que tá na variável user ModalRoute abaixo
   }
 
   @override
   Widget build(BuildContext context) {
-    //final user = ModalRoute.of(context)!.settings.arguments as User;
+    //?pode ser nullo, pode retornar valor ou null; !não pode ser nullo, se for null quebra
+    final arguments = ModalRoute.of(context)?.settings.arguments;
+    if (arguments != null) {
+      final user = arguments as User;
+      _loadFormData(user);
+    }
     //tem a função de me fornecer os usuários quando eu clico em editar o usuário que ja ta criado
-    //final User user = ModalRoute.of(context).settings.arguments; poderia ser feito dessa forma já passando o tipo User na variável user
+    //final User user = ModalRoute.of(context).settings.arguments; //poderia ser feito dessa forma já passando o tipo User na variável user
     //_loadFormData(user);
 
     return Scaffold(
@@ -68,8 +73,9 @@ class UserForm extends StatelessWidget {
             children: <Widget>[
               TextFormField(
                 //AQUI EU RECEBO O NOME E TRATO ELE
-                initialValue: _formData['name']
-                    .toString(), //valor inicial que vai receber quando eu apertar pra editar
+                initialValue:
+                    _formData['name']?.toString() //se for nulo inicia vazio
+                , //valor inicial que vai receber quando eu apertar pra editar
                 decoration: const InputDecoration(
                   labelText: 'Nome',
                   icon: Icon(Icons.account_box),
@@ -88,7 +94,7 @@ class UserForm extends StatelessWidget {
               ),
               TextFormField(
                 //AQUI EU RECEBO O E-MAIL E TRATO ELE
-                initialValue: _formData['email'].toString(),
+                initialValue: _formData['email']?.toString(),
                 decoration: const InputDecoration(
                   labelText: 'E-mail',
                   icon: Icon(Icons.email),
@@ -97,13 +103,22 @@ class UserForm extends StatelessWidget {
               ),
               TextFormField(
                 //AQUI EU RECEBO A URL DO AVATAR E TRATO ELA
-                initialValue: _formData['avatarUrl'].toString(),
+                initialValue: _formData['avatarUrl']?.toString(),
                 decoration: const InputDecoration(
                   labelText: 'Url do Avatar',
                   icon: Icon(Icons.add_a_photo),
                 ),
                 onSaved: (value) => _formData['avatarUrl'] = value!,
               ),
+              SizedBox(
+                width: 300,
+                height: 300,
+                child: Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Image.network(
+                      'https://cdn-icons-png.flaticon.com/512/2080/2080904.png'),
+                ),
+              )
             ],
           ),
         ),
