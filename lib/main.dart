@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false, //para tirar o debug da appbar
         //toda a aplicação é CHILD de ChangeNotifier e toda ela tem acesso ao ChangeNotifierProvider que no caso é a classe Users
-        title: 'Flutter Demo',
+        title: 'Flutter CRUD',
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),

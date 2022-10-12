@@ -27,7 +27,7 @@ class UserForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //?pode ser nullo, pode retornar valor ou null; !não pode ser nullo, se for null quebra
-    final arguments = ModalRoute.of(context)?.settings.arguments;
+    final arguments = ModalRoute.of(context)!.settings.arguments;
     if (arguments != null) {
       final user = arguments as User;
       _loadFormData(user);
@@ -38,6 +38,8 @@ class UserForm extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading:
+            false, //coloquei para retirar o  botão voltar
         title: const Text(
             'Formulário de Usuário'), //usando const para instanciar uma classe
         actions: <Widget>[
