@@ -32,7 +32,7 @@ class UserTile extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(AppRoutes.userForm, arguments: user);
-                Provider.of<Users>(context, listen: false).remove(user);
+                //Provider.of<Users>(context, listen: false).remove(user);
               },
               icon: const Icon(Icons.edit, color: Colors.blue),
             ),

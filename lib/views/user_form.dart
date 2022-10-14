@@ -28,8 +28,11 @@ class UserForm extends StatelessWidget {
   Widget build(BuildContext context) {
     //?pode ser nullo, pode retornar valor ou null; !não pode ser nullo, se for null quebra
     final arguments = ModalRoute.of(context)!.settings.arguments;
-    if (arguments != null) {
-      final user = arguments as User;
+    User? user;
+
+    final isToBeCreated = arguments == null;
+    if (!isToBeCreated) {
+      user = arguments as User;
       _loadFormData(user);
     }
     //tem a função de me fornecer os usuários quando eu clico em editar o usuário que ja ta criado
@@ -38,8 +41,8 @@ class UserForm extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading:
-            false, //coloquei para retirar o  botão voltar
+        // automaticallyImplyLeading:
+        //     false, //coloquei para retirar o  botão voltar
         title: const Text(
             'Formulário de Usuário'), //usando const para instanciar uma classe
         actions: <Widget>[
@@ -50,15 +53,27 @@ class UserForm extends StatelessWidget {
               if (isValid) {
                 _form.currentState
                     ?.save(); //esse método chama em cada um dos meus fields o método save
-                Provider.of<Users>(context, listen: false).put(
-                  User(
-                    //estava dando erro pois não era string aí usei o toString
-                    id: _formData['id'].toString(),
-                    name: _formData['name'].toString(),
-                    email: _formData['email'].toString(),
-                    avatarUrl: _formData['avatarUrl'].toString(),
-                  ),
-                );
+
+                if (isToBeCreated) {
+                  //parentesis depois de User é prq estou instanciando a classe user
+                  //sem parentesis é prq o createUser já é static
+                  final newUser = Users.createUser({
+                    'name': _formData['name'].toString(),
+                    'email': _formData['email'].toString(),
+                    'avatarUrl': _formData['avatarUrl'].toString(),
+                  });
+                  Users().persistUser(newUser.id, newUser);
+                } else {
+                  Provider.of<Users>(context, listen: false).put(
+                    User(
+                      //estava dando erro pois não era string aí usei o toString
+                      id: _formData['id'].toString(),
+                      name: _formData['name'].toString(),
+                      email: _formData['email'].toString(),
+                      avatarUrl: _formData['avatarUrl'].toString(),
+                    ),
+                  );
+                }
                 Navigator.of(context).pop();
               }
             },

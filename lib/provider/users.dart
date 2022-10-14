@@ -31,7 +31,8 @@ class Users with ChangeNotifier {
   void put(User user) {
     //tirei também um parametro desnecessário dele
     //metodo que ja tem no java
-    if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
+    final userHasId = user.id.trim().isNotEmpty && _items.containsKey(user.id);
+    if (userHasId) {
       //min 41:20
       _items.update(
         user.id,
@@ -43,14 +44,31 @@ class Users with ChangeNotifier {
       );
     }
     //adicionar um usuário
-    final id = Random().nextDouble().toString();
+    //final id = Random().nextDouble().toString();
     _items.putIfAbsent(
-        id,
+        user.id,
         () => User(
-            id: id,
+            id: user.id,
             name: user.name,
             email: user.email,
             avatarUrl: user.avatarUrl));
+    notifyListeners();
+  }
+
+  static User createUser(Map<String, dynamic> userDto) {
+    //final createdId = DateTime.now().toString();
+    final createdId = Random().nextDouble().toString();
+    final newUser = User(
+      id: createdId,
+      name: userDto['name'],
+      email: userDto['email'],
+      avatarUrl: userDto['avatarUrl'],
+    );
+    return newUser;
+  }
+
+  void persistUser(String id, User user) {
+    _items.addAll({id: user});
     notifyListeners();
   }
 
