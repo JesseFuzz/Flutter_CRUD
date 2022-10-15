@@ -62,7 +62,8 @@ class UserForm extends StatelessWidget {
                     'email': _formData['email'].toString(),
                     'avatarUrl': _formData['avatarUrl'].toString(),
                   });
-                  Users().persistUser(newUser.id, newUser);
+                  Provider.of<Users>(context, listen: false)
+                      .persistUser(newUser.id, newUser);
                 } else {
                   Provider.of<Users>(context, listen: false).put(
                     User(
